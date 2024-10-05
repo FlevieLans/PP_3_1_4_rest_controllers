@@ -3,7 +3,7 @@ package application.pp_3_1_4_rest_controllers.entity;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Set;
+// import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -17,8 +17,9 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+//    Убрано из-за ошибки LazyInitializationException, без этого все ок работает
+//    @ManyToMany(mappedBy = "roles")
+//    private Set<User> users;
 
     public Role() { }
 
@@ -33,8 +34,9 @@ public class Role implements GrantedAuthority {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    public Set<User> getUsers() { return users; }
-    public void setUsers(Set<User> users) { this.users = users; }
+//    Убрано поле выше, соотвественно и это не нужно
+//    public Set<User> getUsers() { return users; }
+//    public void setUsers(Set<User> users) { this.users = users; }
 
     @Override
     public String getAuthority() { return getRole(); }

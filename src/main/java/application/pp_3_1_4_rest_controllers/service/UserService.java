@@ -9,11 +9,11 @@ public interface UserService extends UserDetailsService {
 
     List<User> getAllUsers();
 
+    User getUser(int id);
+
     boolean saveUser(User user);
 
     boolean updateUser(User user);
-
-    User getUser(int id);
 
     boolean deleteUser(int id);
 

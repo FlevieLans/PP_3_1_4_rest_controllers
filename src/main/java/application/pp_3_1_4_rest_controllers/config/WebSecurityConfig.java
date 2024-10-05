@@ -21,10 +21,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/").permitAll()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
+//                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/**").permitAll() // Временное отключение авторизации, удалить и верхнее раскоментировать по окончанию.
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

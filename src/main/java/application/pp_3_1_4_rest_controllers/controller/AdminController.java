@@ -4,15 +4,15 @@ import application.pp_3_1_4_rest_controllers.entity.User;
 import application.pp_3_1_4_rest_controllers.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+// @Controller
+@RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     private final UserService userService;
@@ -23,17 +23,23 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
+//    Старый метод добавления пользователя
+//    @GetMapping("/admin")
+//    public String showAllUsers(Model model){
+//        model.addAttribute("allUsers", userService.getAllUsers());
+//        return "admin";
+//    }
 
-    @ModelAttribute("newUser")
-    public User getPerson() { return new User(); }
-
-    @GetMapping("/admin")
-    public String showAllUsers(Model model){
-        model.addAttribute("allUsers", userService.getAllUsers());
-        return "admin";
+//    Новый метод добавления пользователя
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @PostMapping("/admin")
+    @ModelAttribute("newUser")
+    public User getNewUser() { return new User(); }
+
+    @PostMapping
     public String addNewUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("allUsers", userService.getAllUsers());
@@ -43,19 +49,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("admin/{id}/delete")
-    public String deleteUser(@ModelAttribute("id") int id) {
-        userService.deleteUser(id);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("admin/{id}/edit")
+    @PostMapping("/{id}/edit")
     public String editUser(@ModelAttribute("id") int id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         return "admin";
     }
 
-    @PostMapping("admin/{id}")
+    @PostMapping("/{id}")
     public String updateUser(@PathVariable("id") int id, @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) { return "admin"; }
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
@@ -65,6 +65,12 @@ public class AdminController {
             user.setPassword(existingUser.getPassword());
         }
         userService.updateUser(user);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteUser(@ModelAttribute("id") int id) {
+        userService.deleteUser(id);
         return "redirect:/admin";
     }
 

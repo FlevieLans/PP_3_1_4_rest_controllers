@@ -26,6 +26,18 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() { return userRepository.findAll(); }
 
+    public User getUser(int id) {
+        Optional<User> userFromDB = userRepository.findById(id);
+        return userFromDB.orElse(new User());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) { throw new UsernameNotFoundException("User not found"); }
+        return user;
+    }
+
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
         if (userFromDB != null) { return false; }
@@ -40,24 +52,12 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    public User getUser(int id) {
-        Optional<User> userFromDB = userRepository.findById(id);
-        return userFromDB.orElse(new User());
-    }
-
     public boolean deleteUser(int id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
             return true;
         }
         return false;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) { throw new UsernameNotFoundException("User not found"); }
-        return user;
     }
 
 }
