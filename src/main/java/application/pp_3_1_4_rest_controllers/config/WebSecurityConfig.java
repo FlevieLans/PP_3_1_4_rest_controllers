@@ -21,7 +21,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()
+                .csrf().disable() // Чтобы пропускало остальные запросы кроме GET
                 .authorizeHttpRequests(auth -> auth
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
 //                        .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
