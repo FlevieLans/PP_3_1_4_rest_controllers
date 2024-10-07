@@ -1,5 +1,7 @@
 function getEditModal(id) {
+    console.log(id);
     let form = document.forms.namedItem("editUserForm");
+    console.log(form);
     fillModal(id, form)
 }
 

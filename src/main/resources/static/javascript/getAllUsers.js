@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () { getAllUsers(); });
+document.addEventListener('DOMContentLoaded', function () {
+    getAllUsers();
+});
 
 function getAllUsers() {
     const allUsersTBodyJS = document.getElementById("allUsersTBody");
@@ -17,9 +19,9 @@ function getAllUsers() {
                 row.insertCell().innerHTML = user.username;
                 row.insertCell().innerHTML = user.roles.map(role => role.roleName).join(', ');
                 row.insertCell().innerHTML =
-                    '<button class="btn btn-sm btn-info" type="submit" onclick="getEditModal(' + user.id + ')" data-toggle="modal" data-target="#editModal">Edit</button>';
+                    '<button class="btn btn-sm btn-info" onclick="getEditModal(' + user.id + ')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>';
                 row.insertCell().innerHTML =
-                    '<button class="btn btn-sm btn-danger" type="submit" onclick="getDeleteModal(' + user.id + ')" data-toggle="modal" data-target="#deleteModal">Delete</button>';
+                    '<button class="btn btn-sm btn-danger" onclick="getDeleteModal(' + user.id + ')" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>';
             }
         })
         .catch(error => console.error('Ошибка:', error));

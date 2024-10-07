@@ -1,15 +1,20 @@
-allRolesSelect = document.getElementsByName("roles")
+document.addEventListener('DOMContentLoaded', function () {
+    getRoles();
+});
 
-for (const rolesSelect of allRolesSelect) {
-    getRoles(rolesSelect)
-}
 
-function getRoles(rolesModal) {
-    fetch('/roles')
+function getRoles() {
+
+    const allRolesSelect = document.getElementsByName("roles")
+
+    fetch('/admin/roles')
         .then(response => response.json())
         .then(roles => {
-            for (const role of roles) {
-                rolesModal.append(new Option(role.roleName, role.id));
+            console.log("Любой текст: " + roles)
+            for (const select of allRolesSelect) {
+                for (const role of roles) {
+                    select.append(new Option(role.roleName, role.id));
+                }
             }
         })
         .catch(error => console.error('Ошибка:', error));
