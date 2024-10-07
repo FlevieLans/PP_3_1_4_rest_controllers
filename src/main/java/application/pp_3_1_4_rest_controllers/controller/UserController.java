@@ -4,13 +4,14 @@ import application.pp_3_1_4_rest_controllers.entity.User;
 import application.pp_3_1_4_rest_controllers.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestController;
 
-// @Controller
-@RestController
+ @Controller
+//@RestController
 @RequestMapping("/user")
 public class UserController {
 
