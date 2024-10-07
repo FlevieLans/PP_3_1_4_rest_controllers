@@ -15,7 +15,7 @@ public class Role implements GrantedAuthority {
     private int id;
 
     @Column(name = "role")
-    private String role;
+    private String roleName;
 
 //    Убрано из-за ошибки LazyInitializationException, без этого все ок работает
 //    @ManyToMany(mappedBy = "roles")
@@ -25,26 +25,26 @@ public class Role implements GrantedAuthority {
 
     public Role(int id) { this.id = id; }
 
-    public Role(int id, String role) { this.id = id; this.role = role; }
+    public Role(int id, String roleName) { this.id = id; this.roleName = roleName; }
 
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public String getRoleName() { return roleName; }
+    public void setRoleName(String roleName) { this.roleName = roleName; }
 
 //    Убрано поле выше, соотвественно и это не нужно
 //    public Set<User> getUsers() { return users; }
 //    public void setUsers(Set<User> users) { this.users = users; }
 
     @Override
-    public String getAuthority() { return getRole(); }
+    public String getAuthority() { return getRoleName(); }
 
 
     @Override
     public String toString() {
-        if(role.contains("ADMIN")) {
+        if(roleName.contains("ADMIN")) {
             return "Admin";
         } else {
             return "User";
