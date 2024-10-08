@@ -19,9 +19,7 @@ function fillModal(id, form) {
             form.elements.namedItem("surname").value = user.surname;
             form.elements.namedItem("age").value = user.age;
             form.elements.namedItem("username").value = user.username;
-            if (form.elements.namedItem("password") != null) {
-                form.elements.namedItem("password").value = "";
-            }
+            form.elements.namedItem("password").value = user.password;
         })
         .catch(error => console.error('Ошибка:', error));
 }

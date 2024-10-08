@@ -7,8 +7,6 @@ import application.pp_3_1_4_rest_controllers.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +16,13 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/admin")
-public class RestAppController {
+public class AdminRestController {
 
     private final UserService userService;
     private final RoleService roleService;
 
 
-    public RestAppController(UserService userService, RoleService roleService) {
+    public AdminRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -59,13 +57,6 @@ public class RestAppController {
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/user")
-    public User getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName();
-        return (User) userService.loadUserByUsername(currentUsername); // Возвращаем JSON объекта User
     }
 
     @PostMapping

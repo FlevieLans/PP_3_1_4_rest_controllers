@@ -1,4 +1,4 @@
-fetch('/admin/user')
+fetch('/userInfo')
     .then(response => response.json())
     .then(user => {
         const usernameHeader = document.getElementById("usernameHeader");
@@ -14,9 +14,5 @@ fetch('/admin/user')
         row.insertCell().innerText = user.age;
         row.insertCell().innerText = user.username;
         row.insertCell().innerText = user.roles.map(role => role.roleName).join(', ');
-
-        if (!user.roles.some(role => role.roleName === 'ROLE_ADMIN')) {
-            document.getElementById("adminMenu").style.display = 'none';
-        }
     })
     .catch(error => console.error('Error fetching user data:', error));
