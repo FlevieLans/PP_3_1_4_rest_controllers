@@ -14,6 +14,7 @@ public class UserRestController {
 
     public UserRestController(UserService userService) { this.userService = userService; }
 
+
     @GetMapping("/userInfo")
     public User getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -1,6 +1,5 @@
 package application.pp_3_1_4_rest_controllers.service;
 
-import application.pp_3_1_4_rest_controllers.entity.Role;
 import application.pp_3_1_4_rest_controllers.entity.User;
 import application.pp_3_1_4_rest_controllers.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +39,6 @@ public class UserServiceImpl implements UserService {
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
         if (userFromDB != null) { return false; }
-//        user.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;

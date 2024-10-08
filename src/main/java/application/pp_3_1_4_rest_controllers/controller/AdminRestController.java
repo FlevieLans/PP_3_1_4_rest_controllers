@@ -7,7 +7,6 @@ import application.pp_3_1_4_rest_controllers.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -46,11 +45,6 @@ public class AdminRestController {
         return new ResponseEntity<>(allRoles, HttpStatus.OK);
     }
 
-    @ModelAttribute("newUser")
-    public User getNewUser() {
-        return new User();
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         User user = userService.getUser(id);
@@ -63,12 +57,6 @@ public class AdminRestController {
     public ResponseEntity<HttpStatus> addNewUser(@RequestBody @Valid User user) {
         userService.saveUser(user);
         return ResponseEntity.ok(HttpStatus.OK);
-    }
-
-    @PostMapping("/{id}/edit")
-    public String editUser(@ModelAttribute("id") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "admin";
     }
 
     @PatchMapping
